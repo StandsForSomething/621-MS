@@ -31,6 +31,8 @@
  */
 void operatorControl() {
 	while (1) {
+		driveR(joystickGetAnalog(1, 3) - joystickGetAnalog(1,4));
+		driveL(joystickGetAnalog(1, 3) + joystickGetAnalog(1,4));
 		delay(20);
 	}
 }
