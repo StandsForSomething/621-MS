@@ -34,7 +34,7 @@ void operatorControl() {
 	int armSpeed;
 	
 	while (1) {
-		if(abs(joystickGetAnalog(1, 3)) > 15 && abs(joystickGetAnalog(1, 4))) {
+		if(abs(joystickGetAnalog(1, 3)) > 15 || abs(joystickGetAnalog(1, 4)) > 15) {
 			driveR(joystickGetAnalog(1, 3) - joystickGetAnalog(1,4));
 			driveL(joystickGetAnalog(1, 3) + joystickGetAnalog(1,4));
 		}
