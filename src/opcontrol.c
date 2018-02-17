@@ -43,7 +43,8 @@ void operatorControl() {
 			driveL(0);
 		}
 		
-		mogo((buttonGetState(JOY1_6D) * -60) + (buttonGetState(JOY1_6U) * 60));
+		fbcSetGoal(&mogoFBC, mogoSense() + (buttonGetState(JOY1_6D) * -600) +
+										   (buttonGetState(JOY1_6U) * 600));
 		armSpeed = joystickGetAnalog(1, 2);
 		
 		////////////////////////
@@ -61,7 +62,6 @@ void operatorControl() {
 			armSet(0);
 		}
 
-		
 		delay(20);
 	}
 }

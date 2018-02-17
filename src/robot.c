@@ -7,6 +7,11 @@ const int LBDrive = 9;
 const int mogoLift = 4;
 const int arm = 6;
 
+const int mogoPot = 8;
+
+fbc_t mogoFBC;
+fbc_pid_t mogoPID;
+
 void initMotors() {
 	blrsMotorInit(LFDrive, false, DEFAULT_SLEW_RATE, NULL);
 	blrsMotorInit(LBDrive, false, DEFAULT_SLEW_RATE, NULL);
@@ -44,3 +49,22 @@ void armSet(int power) {
 
 }
 
+int mogoSense() {
+	return analogRead(mogoPot);	
+}
+
+void fbcTask(void *ignore) {
+	while(1) {
+		fbcRunContinuous(&mogoFBC);
+	}
+}
+
+void fbcInitControllers() {
+	fbcInit(&mogoFBC, &mogo, &mogoSense, NULL, &fbcStallDetect, 1, 1, 50, 50);
+	
+	fbcPIDInitializeData(&mogoPID, 0.35, 0, 0, 0, 0);
+	
+	fbcPIDInit(&mogoFBC, &mogoPID);
+	
+	taskCreate(&fbcTask, TASK_DEFAULT_STACK_SIZE, NULL, TASK_PRIORITY_DEFAULT);
+}

@@ -5,11 +5,16 @@ const int LFDrive;
 const int RFDrive;
 const int RBDrive;
 const int LBDrive;
+const int mogoLift;
+
+fbc_t mogoFBC;
 
 void initMotors();
 void driveL(int power);
 void driveR(int power);
 void mogo(int power);
 void armSet(int power);
+int mogoSense();
+void fbcInitControllers();
 #endif
 
