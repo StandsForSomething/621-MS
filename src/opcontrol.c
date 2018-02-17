@@ -29,12 +29,38 @@
  *
  * This task should never exit; it should end with some kind of infinite loop, even if empty.
  */
+
 void operatorControl() {
+	int armSpeed;
+	
 	while (1) {
-		driveR(joystickGetAnalog(1, 3) - joystickGetAnalog(1,4));
-		driveL(joystickGetAnalog(1, 3) + joystickGetAnalog(1,4));
+		if(abs(joystickGetAnalog(1, 3)) > 15 && abs(joystickGetAnalog(1, 4))) {
+			driveR(joystickGetAnalog(1, 3) - joystickGetAnalog(1,4));
+			driveL(joystickGetAnalog(1, 3) + joystickGetAnalog(1,4));
+		}
+		else {
+			driveR(0);
+			driveL(0);
+		}
+		
 		mogo((buttonGetState(JOY1_6D) * -60) + (buttonGetState(JOY1_6U) * 60));
-            
+		armSpeed = joystickGetAnalog(1, 2);
+		
+		////////////////////////
+		// Partner controller //
+		////////////////////////
+		
+		if(abs(armSpeed) < 15) {
+			armSpeed = joystickGetAnalog(2, 2); 
+		}
+		
+		if(abs(armSpeed) > 15) {
+			armSet(armSpeed);
+		} 
+		else {
+			armSet(0);
+		}
+
 		
 		delay(20);
 	}
