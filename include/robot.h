@@ -9,5 +9,6 @@ const int LBDrive;
 void initMotors();
 void driveL(int power);
 void driveR(int power);
+void mogo(int power);
 #endif
 

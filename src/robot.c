@@ -4,13 +4,14 @@ const int LFDrive = 2;
 const int RFDrive = 3;
 const int RBDrive = 8;
 const int LBDrive = 9;
+const int mogoLift = 4;
 
 void initMotors() {
 	blrsMotorInit(LFDrive, false, DEFAULT_SLEW_RATE, NULL);
 	blrsMotorInit(LBDrive, false, DEFAULT_SLEW_RATE, NULL);
 	blrsMotorInit(RFDrive, true, DEFAULT_SLEW_RATE, NULL);
 	blrsMotorInit(RBDrive, true, DEFAULT_SLEW_RATE, NULL);
-	blrsMotorInit(4, false, DEFAULT_SLEW_RATE, NULL);
+	blrsMotorInit(mogoLift, true, DEFAULT_SLEW_RATE, NULL);
 	blrsMotorInit(1, false, DEFAULT_SLEW_RATE, NULL);
 	blrsMotorInit(5, false, DEFAULT_SLEW_RATE, NULL);
 	blrsMotorInit(6, false, DEFAULT_SLEW_RATE, NULL);
@@ -34,7 +35,7 @@ void driveR(int power) {
 	blrsMotorSet(RBDrive, power, false);
 }
 void mogo(int power) {
-
+	blrsMotorSet(mogoLift, power, false);
 }
 
 void arm(int power) {

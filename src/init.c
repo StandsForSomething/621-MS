@@ -38,4 +38,5 @@ void initializeIO() {
  */
 void initialize() {
 	initMotors();
+	buttonInit();
 }

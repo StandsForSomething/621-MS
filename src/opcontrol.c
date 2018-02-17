@@ -33,6 +33,9 @@ void operatorControl() {
 	while (1) {
 		driveR(joystickGetAnalog(1, 3) - joystickGetAnalog(1,4));
 		driveL(joystickGetAnalog(1, 3) + joystickGetAnalog(1,4));
+		mogo((buttonGetState(JOY1_6D) * -60) + (buttonGetState(JOY1_6U) * 60));
+            
+		
 		delay(20);
 	}
 }
