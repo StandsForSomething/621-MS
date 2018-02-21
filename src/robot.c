@@ -31,15 +31,6 @@ void initMotors() {
 	}
 }
 
-void driveL(int power) {
-	blrsMotorSet(LFDrive, power, false);
-	blrsMotorSet(LBDrive, power, false);
-}
-
-void driveR(int power) {
-	blrsMotorSet(RFDrive, power, false);
-	blrsMotorSet(RBDrive, power, false);
-}
 void mogo(int power) {
 	blrsMotorSet(mogoLift, power, false);
 }

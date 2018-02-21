@@ -38,6 +38,7 @@ void initializeIO() {
  */
 void initialize() {
 	initMotors();
+  initDrive();
 	buttonInit();
 	fbcInitControllers();
 }

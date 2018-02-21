@@ -31,6 +31,7 @@
 #include "fbc_pid.h"
 #include "mtrmgr.h"
 #include "robot.h"
+#include "drive.h"
 
 // Allow usage of this file in C++ programs
 #ifdef __cplusplus

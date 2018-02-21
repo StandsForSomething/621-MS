@@ -10,8 +10,6 @@ const int mogoLift;
 fbc_t mogoFBC;
 
 void initMotors();
-void driveL(int power);
-void driveR(int power);
 void mogo(int power);
 void armSet(int power);
 int mogoSense();

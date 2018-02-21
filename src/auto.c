@@ -27,4 +27,9 @@
  * so, the robot will await a switch to another mode or disable/enable cycle.
  */
 void autonomous() {
+  encoderReset(leftEnc);
+  encoderReset(rightEnc);
+  //fbcSetGoal(&LDriveFBC, 1000);
+  //fbcSetGoal(&RDriveFBC, 1000);
+  drive(1000, true);
 }
