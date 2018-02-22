@@ -2,7 +2,7 @@
 
 //the amount of counts + the master sensor value the slave should target.
 //without this the master will start ahead of the slave
-#define MASTER_SLAVE_OFFSET 200
+#define MASTER_SLAVE_OFFSET 350
 
 //this defines how many iterations the slave's target sensor value should be
 //ahead of the master. each iteration is 20ms so the time in ms is the number
@@ -54,6 +54,8 @@ void drive(int distance, bool blocking) {
 }
 
 void turn(int left, int right, bool blocking) {
+  encoderReset(leftEnc);
+  encoderReset(rightEnc);
   driveStraight = false;
   fbcSetGoal(&LDriveFBC, left);
   fbcSetGoal(&RDriveFBC, right);
@@ -64,13 +66,15 @@ void turn(int left, int right, bool blocking) {
 }
 
 void driveTask(void *ignore) {
+  encoderReset(leftEnc);
+  encoderReset(rightEnc);
   int slaveGoal;
   while(1) {
     if(driveStraight) {
       slaveGoal = RDriveSense() + MASTER_SLAVE_OFFSET;
       driveStraightLoops++;
-      if(RDriveSense() > abs(RDriveFBC.goal) - 25) {
-        slaveGoal = RDriveSense() - 10;
+      if(RDriveSense() > abs(RDriveFBC.goal) - 175) {
+        slaveGoal = RDriveSense();
       }
       fbcSetGoal(&LDriveFBC, slaveGoal);
     }
@@ -91,8 +95,8 @@ void initDrive() {
 	fbcInit(&RDriveFBC, &driveR, &RDriveSense, NULL, &fbcStallDetect, 10, 10, 25,
 			1);
 
-	fbcPIDInitializeData(&LDrivePID, 0.4, 0, 0, 0, 0);
-	fbcPIDInitializeData(&RDrivePID, 0.4, 0, 0, 0, 0);
+	fbcPIDInitializeData(&LDrivePID, 0.4, 0, 70, 0, 0);
+	fbcPIDInitializeData(&RDrivePID, 0.4, 0, 70, 0, 0);
 	fbcPIDInit(&LDriveFBC, &LDrivePID);
   fbcPIDInit(&RDriveFBC, &RDrivePID);
   taskCreate(driveTask, TASK_DEFAULT_STACK_SIZE, NULL, TASK_PRIORITY_DEFAULT);
