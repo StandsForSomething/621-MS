@@ -31,17 +31,26 @@
  */
 
 void operatorControl() {
+  int turnDivisor = 4;
 	int armSpeed;
 	
 	while (1) {
 		if(abs(joystickGetAnalog(1, 3)) > 15 || abs(joystickGetAnalog(1, 4)) > 15) {
-			driveR(joystickGetAnalog(1, 3) - joystickGetAnalog(1,4));
-			driveL(joystickGetAnalog(1, 3) + joystickGetAnalog(1,4));
+			driveR(joystickGetAnalog(1, 3) - joystickGetAnalog(1,4) / turnDivisor);
+			driveL(joystickGetAnalog(1, 3) + joystickGetAnalog(1,4) / turnDivisor);
 		}
 		else {
 			driveR(0);
 			driveL(0);
 		}
+
+    if(buttonGetState(JOY1_5U)) {
+      turnDivisor = 1;
+    }
+
+      else {
+        turnDivisor = 4;
+      }
 		
 		fbcSetGoal(&mogoFBC, mogoSense() + (buttonGetState(JOY1_6D) * -600) +
 										   (buttonGetState(JOY1_6U) * 600));
