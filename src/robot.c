@@ -24,7 +24,7 @@ void initMotors() {
 	blrsMotorInit(arm1, true, DEFAULT_SLEW_RATE, NULL);
 	blrsMotorInit(arm2, false, DEFAULT_SLEW_RATE, NULL);
 	blrsMotorInit(clawServo, false, DEFAULT_SLEW_RATE, NULL);
-	blrsMotorInit(4, false, DEFAULT_SLEW_RATE, NULL);
+	blrsMotorInit(1, false, DEFAULT_SLEW_RATE, NULL);
 	blrsMotorInit(10, false, DEFAULT_SLEW_RATE,  NULL);
 	motorManagerInit();
 	
@@ -72,4 +72,3 @@ void fbcInitControllers() {
 	
 	taskCreate(&fbcTask, TASK_DEFAULT_STACK_SIZE, NULL, TASK_PRIORITY_DEFAULT);
 }
-    
