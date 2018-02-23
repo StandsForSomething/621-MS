@@ -38,7 +38,8 @@ void initializeIO() {
  */
 void initialize() {
 	initMotors();
-  initDrive();
+	initDrive();
 	buttonInit();
 	fbcInitControllers();
+	fbcSetGoal(&mogoFBC, mogoSense());
 }
