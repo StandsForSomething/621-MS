@@ -5,9 +5,12 @@ const int RFDrive = 3;
 const int RBDrive = 8;
 const int LBDrive = 9;
 const int mogoLift = 4;
-const int arm = 6;
+const int arm1 = 5;
+const int arm2 = 6;
+const int clawServo = 7;
 
 const int mogoPot = 8;
+const int autonSelection = 5;
 
 fbc_t mogoFBC;
 fbc_pid_t mogoPID;
@@ -18,10 +21,10 @@ void initMotors() {
 	blrsMotorInit(RFDrive, true, DEFAULT_SLEW_RATE, NULL);
 	blrsMotorInit(RBDrive, true, DEFAULT_SLEW_RATE, NULL);
 	blrsMotorInit(mogoLift, true, DEFAULT_SLEW_RATE, NULL);
-	blrsMotorInit(arm, true, DEFAULT_SLEW_RATE, NULL);
-	blrsMotorInit(1, false, DEFAULT_SLEW_RATE, NULL);
-	blrsMotorInit(5, false, DEFAULT_SLEW_RATE, NULL);
-	blrsMotorInit(7, false, DEFAULT_SLEW_RATE, NULL);
+	blrsMotorInit(arm1, true, DEFAULT_SLEW_RATE, NULL);
+	blrsMotorInit(arm2, false, DEFAULT_SLEW_RATE, NULL);
+	blrsMotorInit(clawServo, false, DEFAULT_SLEW_RATE, NULL);
+	blrsMotorInit(4, false, DEFAULT_SLEW_RATE, NULL);
 	blrsMotorInit(10, false, DEFAULT_SLEW_RATE,  NULL);
 	motorManagerInit();
 	
@@ -36,13 +39,23 @@ void mogo(int power) {
 }
 
 void armSet(int power) {
-	blrsMotorSet(arm, power, false);
+	blrsMotorSet(arm1, power, false);
+	blrsMotorSet(arm2, power, false);
+}
 
+void clawServoSet(int position) {
+	blrsMotorSet(clawServo, position, false);
+    
 }
 
 int mogoSense() {
 	return analogRead(mogoPot);	
 }
+
+int autonSelect() {
+	return analogRead(autonSelection);	
+}
+
 
 void fbcTask(void *ignore) {
 	while(1) {
@@ -59,3 +72,4 @@ void fbcInitControllers() {
 	
 	taskCreate(&fbcTask, TASK_DEFAULT_STACK_SIZE, NULL, TASK_PRIORITY_DEFAULT);
 }
+    

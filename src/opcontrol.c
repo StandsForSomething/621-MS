@@ -31,8 +31,9 @@
  */
 
 void operatorControl() {
-  int turnDivisor = 4;
-	int armSpeed;
+	int turnDivisor = 4;
+	int armSpeed;	
+	bool clawOpen = false;
 	
 	while (1) {
 		if(abs(joystickGetAnalog(1, 3)) > 15 || abs(joystickGetAnalog(1, 4)) > 15) {
@@ -44,13 +45,25 @@ void operatorControl() {
 			driveL(0);
 		}
 
-    if(buttonGetState(JOY1_5U)) {
-      turnDivisor = 1;
-    }
+		if(buttonGetState(JOY1_5U)) {
+			turnDivisor = 1;
+		}
 
-      else {
-        turnDivisor = 4;
-      }
+		else {
+			turnDivisor = 4;
+		}
+	
+		if(buttonIsNewPress(JOY1_5D) || buttonIsNewPress(JOY2_5D)) {
+			if(clawOpen) {
+				clawServoSet(CLAW_CLOSE_POSITION);
+				clawOpen = false;
+			}
+		
+			else if(!clawOpen) {
+				clawServoSet(CLAW_OPEN_POSITION);
+				clawOpen = true;
+			}
+		}
 		
 		fbcSetGoal(&mogoFBC, mogoSense() + (buttonGetState(JOY1_6D) * -600) +
 										   (buttonGetState(JOY1_6U) * 600));
