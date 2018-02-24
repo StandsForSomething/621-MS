@@ -83,7 +83,8 @@ void operatorControl() {
 		else {
 			armSet(0);
 		}
-
+		printf("mogoPot:%d\n\r", mogoSense());
+		printf("autonSelection:%d\n\r", autonSelect());
 		delay(20);
 	}
 }
