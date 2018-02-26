@@ -53,7 +53,7 @@ void operatorControl() {
 			turnDivisor = 4;
 		}
 	
-		if(buttonIsNewPress(JOY1_5D) || buttonIsNewPress(JOY2_5D)) {
+		if(buttonIsNewPress(JOY2_5D)) {
 			if(clawOpen) {
 				clawServoSet(CLAW_CLOSE_POSITION);
 				clawOpen = false;
@@ -65,10 +65,10 @@ void operatorControl() {
 			}
 		}
 		
-		fbcSetGoal(&mogoFBC, mogoSense() + (buttonGetState(JOY1_6D) * -600) +
-										   (buttonGetState(JOY1_6U) * 600));
-		armSpeed = joystickGetAnalog(1, 2);
-		
+		fbcSetGoal(&mogoFBC, mogoSense() + (buttonGetState(JOY1_6U) * -600) +
+										   (buttonGetState(JOY1_6D) * 600));
+		//armSpeed = joystickGetAnalog(1, 2);
+		armSpeed = 0;
 		////////////////////////
 		// Partner controller //
 		////////////////////////
@@ -79,12 +79,15 @@ void operatorControl() {
 		
 		if(abs(armSpeed) > 15) {
 			armSet(armSpeed);
+		//bcSetGoal(&armFBC, armSense() + (armSpeed * 3));
 		} 
 		else {
 			armSet(0);
+	//fbcSetGoal(&armFBC,armSense());
 		}
 		printf("mogoPot:%d\n\r", mogoSense());
 		printf("autonSelection:%d\n\r", autonSelect());
+			printf("armSense:%d\n\r", armSense());
 		delay(20);
 	}
 }

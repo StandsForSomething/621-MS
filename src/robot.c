@@ -11,9 +11,13 @@ const int clawServo = 7;
 
 const int mogoPot = 8;
 const int autonSelection = 5;
+const int armPot = 2;
 
 fbc_t mogoFBC;
 fbc_pid_t mogoPID;
+
+fbc_t armFBC;
+fbc_pid_t armPID;
 
 void initMotors() {
 	blrsMotorInit(LFDrive, false, DEFAULT_SLEW_RATE, NULL);
@@ -52,6 +56,10 @@ int mogoSense() {
 	return analogRead(mogoPot);	
 }
 
+int armSense() {
+	return analogRead(armPot);	
+}
+
 int autonSelect() {
 	return analogRead(autonSelection);	
 }
@@ -60,14 +68,19 @@ int autonSelect() {
 void fbcTask(void *ignore) {
 	while(1) {
 		fbcRunContinuous(&mogoFBC);
+		//fbcRunContinuous(&armFBC);
+		delay(20);
 	}
+	
 }
 
 void fbcInitControllers() {
-	fbcInit(&mogoFBC, &mogo, &mogoSense, NULL, &fbcStallDetect, 1, 1, 50, 50);
+	fbcInit(&armFBC, &armSet, &armSense, NULL, &fbcStallDetect, 1, 1, 50, 50);	
+	fbcPIDInitializeData(&armPID, 0.35, 0, 0, 0, 0);
+	fbcPIDInit(&mogoFBC, &armPID);
 	
+	fbcInit(&mogoFBC, &mogo, &mogoSense, NULL, &fbcStallDetect, 1, 1, 50, 50);	
 	fbcPIDInitializeData(&mogoPID, 0.35, 0, 0, 0, 0);
-	
 	fbcPIDInit(&mogoFBC, &mogoPID);
 	
 	taskCreate(&fbcTask, TASK_DEFAULT_STACK_SIZE, NULL, TASK_PRIORITY_DEFAULT);

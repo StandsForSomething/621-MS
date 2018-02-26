@@ -14,14 +14,17 @@ const int LBDrive;
 const int mogoLift;
 
 fbc_t mogoFBC;
+fbc_t armFBC;
 
 void initMotors();
 void mogo(int power);
 void armSet(int power);
 void clawServoSet(int position);
 int mogoSense();
+int armSense();
 int autonSelect();
 void fbcInitControllers();
+
 
 #endif
 
