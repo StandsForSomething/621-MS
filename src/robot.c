@@ -25,8 +25,8 @@ void initMotors() {
 	blrsMotorInit(RFDrive, true, DEFAULT_SLEW_RATE, NULL);
 	blrsMotorInit(RBDrive, true, DEFAULT_SLEW_RATE, NULL);
 	blrsMotorInit(mogoLift, true, DEFAULT_SLEW_RATE, NULL);
-	blrsMotorInit(arm1, true, DEFAULT_SLEW_RATE, NULL);
-	blrsMotorInit(arm2, false, DEFAULT_SLEW_RATE, NULL);
+	blrsMotorInit(arm1, false, DEFAULT_SLEW_RATE, NULL);
+	blrsMotorInit(arm2, true, DEFAULT_SLEW_RATE, NULL);
 	blrsMotorInit(clawServo, false, DEFAULT_SLEW_RATE, NULL);
 	blrsMotorInit(4, false, DEFAULT_SLEW_RATE, NULL);
 	blrsMotorInit(10, false, DEFAULT_SLEW_RATE,  NULL);
@@ -68,7 +68,7 @@ int autonSelect() {
 void fbcTask(void *ignore) {
 	while(1) {
 		fbcRunContinuous(&mogoFBC);
-		//fbcRunContinuous(&armFBC);
+		fbcRunContinuous(&armFBC);
 		delay(20);
 	}
 	
@@ -77,11 +77,11 @@ void fbcTask(void *ignore) {
 void fbcInitControllers() {
 	fbcInit(&armFBC, &armSet, &armSense, NULL, &fbcStallDetect, 1, 1, 50, 50);	
 	fbcPIDInitializeData(&armPID, 0.35, 0, 0, 0, 0);
-	fbcPIDInit(&mogoFBC, &armPID);
+	fbcPIDInit(&armFBC, &armPID);
 	
 	fbcInit(&mogoFBC, &mogo, &mogoSense, NULL, &fbcStallDetect, 1, 1, 50, 50);	
 	fbcPIDInitializeData(&mogoPID, 0.35, 0, 0, 0, 0);
-	fbcPIDInit(&mogoFBC, &mogoPID);
+	fbcPIDInit(&mogoFBC, &mogoPID);    
 	
 	taskCreate(&fbcTask, TASK_DEFAULT_STACK_SIZE, NULL, TASK_PRIORITY_DEFAULT);
 }

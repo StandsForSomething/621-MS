@@ -34,6 +34,7 @@ void operatorControl() {
 	int turnDivisor = 4;
 	int armSpeed;	
 	bool clawOpen = false;
+	bool armHold = false;
 	
 	while (1) {
 		if(abs(joystickGetAnalog(1, 3)) > 15 || abs(joystickGetAnalog(1, 4)) > 15) {
@@ -78,16 +79,18 @@ void operatorControl() {
 		}
 		
 		if(abs(armSpeed) > 15) {
-			armSet(armSpeed);
-		//bcSetGoal(&armFBC, armSense() + (armSpeed * 3));
+			armHold = false;
+			fbcSetGoal(&armFBC, armSense() + (armSpeed * 3));
 		} 
-		else {
-			armSet(0);
-	//fbcSetGoal(&armFBC,armSense());
+		
+		else if(!armHold) {
+			fbcSetGoal(&armFBC,armSense());
+			armHold = true;
 		}
-		printf("mogoPot:%d\n\r", mogoSense());
-		printf("autonSelection:%d\n\r", autonSelect());
-			printf("armSense:%d\n\r", armSense());
+		
+		//printf("mogoPot:%d\n\r", mogoSense());
+		//printf("autonSelection:%d\n\r", autonSelect());
+		printf("armSense:%d\n\r", armSense());
 		delay(20);
 	}
 }

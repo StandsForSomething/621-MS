@@ -42,4 +42,5 @@ void initialize() {
 	buttonInit();
 	fbcInitControllers();
 	fbcSetGoal(&mogoFBC, mogoSense());
+	fbcSetGoal(&armFBC, armSense());
 }
