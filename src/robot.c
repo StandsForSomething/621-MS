@@ -7,7 +7,7 @@ const int LBDrive = 9;
 const int mogoLift = 4;
 const int arm1 = 5;
 const int arm2 = 6;
-const int clawServo = 7;
+const int intake = 7;
 
 const int mogoPot = 8;
 const int autonSelection = 5;
@@ -27,7 +27,7 @@ void initMotors() {
 	blrsMotorInit(mogoLift, true, DEFAULT_SLEW_RATE, NULL);
 	blrsMotorInit(arm1, false, DEFAULT_SLEW_RATE, NULL);
 	blrsMotorInit(arm2, true, DEFAULT_SLEW_RATE, NULL);
-	blrsMotorInit(clawServo, false, DEFAULT_SLEW_RATE, NULL);
+	blrsMotorInit(intake, false, DEFAULT_SLEW_RATE, NULL);
 	blrsMotorInit(4, false, DEFAULT_SLEW_RATE, NULL);
 	blrsMotorInit(10, false, DEFAULT_SLEW_RATE,  NULL);
 	motorManagerInit();
@@ -47,9 +47,30 @@ void armSet(int power) {
 	blrsMotorSet(arm2, power, false);
 }
 
-void clawServoSet(int position) {
-	blrsMotorSet(clawServo, position, false);
-    
+void intakeSet(int power) {
+	blrsMotorSet(intake, power, false);
+}
+
+int intakeSetState(int state) {
+	switch(state) {
+		case OUTAKE_CONE:
+			intakeSet(-127);
+		break;
+		
+		case INTAKE_CONE:
+			intakeSet(127);
+		break;
+		
+		case HOLD_CONE:
+			intakeSet(20);
+		break;
+			
+		case EMPTY:
+			intakeSet(0);
+		break;
+	}
+	
+	return state;
 }
 
 int mogoSense() {

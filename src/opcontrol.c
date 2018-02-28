@@ -33,7 +33,7 @@
 void operatorControl() {
 	int turnDivisor = 4;
 	int armSpeed;	
-	bool clawOpen = false;
+	int intakeState = intakeSetState(HOLD_CONE);
 	bool armHold = false;
 	
 	while (1) {
@@ -53,17 +53,25 @@ void operatorControl() {
 		else {
 			turnDivisor = 4;
 		}
-	
+		
 		if((!isJoystickConnected(2) && buttonIsNewPress(JOY1_5D)) ||
 			buttonIsNewPress(JOY2_5D)) {
-			if(clawOpen) {
-				clawServoSet(CLAW_CLOSE_POSITION);
-				clawOpen = false;
-			}
-		
-			else if(!clawOpen) {
-				clawServoSet(CLAW_OPEN_POSITION);
-				clawOpen = true;
+			switch(intakeState) {
+				case OUTAKE_CONE:
+					intakeState = intakeSetState(EMPTY);
+				break;
+				
+				case EMPTY:
+					intakeState = intakeSetState(INTAKE_CONE);
+				break;
+				
+				case INTAKE_CONE:
+					intakeState = intakeSetState(HOLD_CONE);
+				break;
+				
+				case HOLD_CONE:
+					intakeState = intakeSetState(OUTAKE_CONE);
+				break;
 			}
 		}
 		
