@@ -76,7 +76,7 @@ void fbcTask(void *ignore) {
 
 void fbcInitControllers() {
 	fbcInit(&armFBC, &armSet, &armSense, NULL, &fbcStallDetect, 1, 1, 50, 50);	
-	fbcPIDInitializeData(&armPID, 0.35, 0, 0, 0, 0);
+	fbcPIDInitializeData(&armPID, 0.2, 0, 0, 0, 0);
 	fbcPIDInit(&armFBC, &armPID);
 	
 	fbcInit(&mogoFBC, &mogo, &mogoSense, NULL, &fbcStallDetect, 1, 1, 50, 50);	
