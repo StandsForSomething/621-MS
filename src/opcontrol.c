@@ -54,7 +54,8 @@ void operatorControl() {
 			turnDivisor = 4;
 		}
 	
-		if(buttonIsNewPress(JOY2_5D)) {
+		if((!isJoystickConnected(2) && buttonIsNewPress(JOY1_5D)) ||
+			buttonIsNewPress(JOY2_5D)) {
 			if(clawOpen) {
 				clawServoSet(CLAW_CLOSE_POSITION);
 				clawOpen = false;
@@ -68,14 +69,12 @@ void operatorControl() {
 		
 		fbcSetGoal(&mogoFBC, mogoSense() + (buttonGetState(JOY1_6U) * -600) +
 										   (buttonGetState(JOY1_6D) * 600));
-		//armSpeed = joystickGetAnalog(1, 2);
-		armSpeed = 0;
-		////////////////////////
-		// Partner controller //
-		////////////////////////
+		if(!isJoystickConnected(2)) {
+			armSpeed = -joystickGetAnalog(1, 2);
+		}
 		
-		if(abs(armSpeed) < 15) {
-			armSpeed = joystickGetAnalog(2, 2); 
+		else {
+			armSpeed = -joystickGetAnalog(2, 2); 
 		}
 		
 		if(abs(armSpeed) > 15) {
