@@ -5,8 +5,8 @@ const int RFDrive = 3;
 const int RBDrive = 8;
 const int LBDrive = 9;
 const int mogoLift = 4;
-const int arm1 = 5;
-const int arm2 = 6;
+const int armLeft = 5;
+const int armRight = 6;
 const int intake = 7;
 
 const int mogoPot = 8;
@@ -25,8 +25,8 @@ void initMotors() {
 	blrsMotorInit(RFDrive, true, DEFAULT_SLEW_RATE, NULL);
 	blrsMotorInit(RBDrive, true, DEFAULT_SLEW_RATE, NULL);
 	blrsMotorInit(mogoLift, true, DEFAULT_SLEW_RATE, NULL);
-	blrsMotorInit(arm1, false, DEFAULT_SLEW_RATE, NULL);
-	blrsMotorInit(arm2, true, DEFAULT_SLEW_RATE, NULL);
+	blrsMotorInit(armLeft, false, DEFAULT_SLEW_RATE, NULL);
+	blrsMotorInit(armRight, true, DEFAULT_SLEW_RATE, NULL);
 	blrsMotorInit(intake, false, DEFAULT_SLEW_RATE, NULL);
 	blrsMotorInit(4, false, DEFAULT_SLEW_RATE, NULL);
 	blrsMotorInit(10, false, DEFAULT_SLEW_RATE,  NULL);
@@ -43,8 +43,8 @@ void mogo(int power) {
 }
 
 void armSet(int power) {
-	blrsMotorSet(arm1, power, false);
-	blrsMotorSet(arm2, power, false);
+	blrsMotorSet(armLeft, power, false);
+	blrsMotorSet(armRight, power, false);
 }
 
 void intakeSet(int power) {
