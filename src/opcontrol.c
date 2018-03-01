@@ -33,7 +33,8 @@
 void operatorControl() {
 	int turnDivisor = 4;
 	int armSpeed;	
-	bool clawOpen = false;
+	int intakeState = intakeSetState(HOLD_CONE);
+	bool armHold = false;
 	
 	while (1) {
 		if(abs(joystickGetAnalog(1, 3)) > 15 || abs(joystickGetAnalog(1, 4)) > 15) {
@@ -52,38 +53,51 @@ void operatorControl() {
 		else {
 			turnDivisor = 4;
 		}
-	
-		if(buttonIsNewPress(JOY1_5D) || buttonIsNewPress(JOY2_5D)) {
-			if(clawOpen) {
-				clawServoSet(CLAW_CLOSE_POSITION);
-				clawOpen = false;
-			}
 		
-			else if(!clawOpen) {
-				clawServoSet(CLAW_OPEN_POSITION);
-				clawOpen = true;
+		if((!isJoystickConnected(2) && buttonIsNewPress(JOY1_5D)) ||
+			buttonIsNewPress(JOY2_5D)) {
+			switch(intakeState) {
+				case OUTAKE_CONE:
+					intakeState = intakeSetState(EMPTY);
+				break;
+				
+				case EMPTY:
+					intakeState = intakeSetState(INTAKE_CONE);
+				break;
+				
+				case INTAKE_CONE:
+					intakeState = intakeSetState(HOLD_CONE);
+				break;
+				
+				case HOLD_CONE:
+					intakeState = intakeSetState(OUTAKE_CONE);
+				break;
 			}
 		}
 		
-		fbcSetGoal(&mogoFBC, mogoSense() + (buttonGetState(JOY1_6D) * -600) +
-										   (buttonGetState(JOY1_6U) * 600));
-		armSpeed = joystickGetAnalog(1, 2);
+		fbcSetGoal(&mogoFBC, mogoSense() + (buttonGetState(JOY1_6U) * -600) +
+										   (buttonGetState(JOY1_6D) * 600));
+		if(!isJoystickConnected(2)) {
+			armSpeed = -joystickGetAnalog(1, 2);
+		}
 		
-		////////////////////////
-		// Partner controller //
-		////////////////////////
-		
-		if(abs(armSpeed) < 15) {
-			armSpeed = joystickGetAnalog(2, 2); 
+		else {
+			armSpeed = -joystickGetAnalog(2, 2); 
 		}
 		
 		if(abs(armSpeed) > 15) {
-			armSet(armSpeed);
+			armHold = false;
+			fbcSetGoal(&armFBC, armSense() + (armSpeed * 3));
 		} 
-		else {
-			armSet(0);
+		
+		else if(!armHold) {
+			fbcSetGoal(&armFBC,armSense());
+			armHold = true;
 		}
-
+		
+		//printf("mogoPot:%d\n\r", mogoSense());
+		//printf("autonSelection:%d\n\r", autonSelect());
+		printf("armSense:%d\n\r", armSense());
 		delay(20);
 	}
 }

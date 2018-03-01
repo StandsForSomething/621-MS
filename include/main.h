@@ -32,6 +32,7 @@
 #include "mtrmgr.h"
 #include "robot.h"
 #include "drive.h"
+#include "autonRoutines.h"
 
 // Allow usage of this file in C++ programs
 #ifdef __cplusplus
