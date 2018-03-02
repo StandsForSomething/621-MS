@@ -34,13 +34,30 @@ void operatorControl() {
 	int turnDivisor = 4;
 	int armSpeed;	
 	int intakeState = intakeSetState(HOLD_CONE);
+  int driveLSpeed = 0;
+  int driveRSpeed = 0;
 	bool armHold = false;
 	
 	while (1) {
-		if(abs(joystickGetAnalog(1, 3)) > 15 || abs(joystickGetAnalog(1, 4)) > 15) {
+    driveRSpeed = buttonGetState(JOY1_7U) * 127;
+    driveLSpeed = buttonGetState(JOY1_7U) * 127;
+    driveRSpeed += buttonGetState(JOY1_7D) * -127;
+    driveLSpeed += buttonGetState(JOY1_7D) * -127;
+    driveRSpeed += buttonGetState(JOY1_7R) * -127;
+    driveLSpeed += buttonGetState(JOY1_7R) * 127 ;
+    driveRSpeed += buttonGetState(JOY1_7L) * 127;
+    driveLSpeed += buttonGetState(JOY1_7L) * -127;
+
+    if(abs(driveRSpeed) > 15 || abs(driveLSpeed) > 15) {
+      driveR(driveRSpeed);
+      driveL(driveLSpeed);
+    }
+
+		else if(abs(joystickGetAnalog(1, 3)) > 15 || abs(joystickGetAnalog(1, 4)) > 15) {
 			driveR(joystickGetAnalog(1, 3) - joystickGetAnalog(1,4) / turnDivisor);
 			driveL(joystickGetAnalog(1, 3) + joystickGetAnalog(1,4) / turnDivisor);
 		}
+
 		else {
 			driveR(0);
 			driveL(0);
