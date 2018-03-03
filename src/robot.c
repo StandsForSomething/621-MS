@@ -11,7 +11,8 @@ const int intake = 7;
 
 const int mogoPot = 8;
 const int autonSelection = 5;
-const int armPot = 2;
+
+Encoder armEnc;
 
 fbc_t mogoFBC;
 fbc_pid_t mogoPID;
@@ -78,13 +79,12 @@ int mogoSense() {
 }
 
 int armSense() {
-	return analogRead(armPot);	
+	return encoderGet(armEnc);	
 }
 
 int autonSelect() {
 	return analogRead(autonSelection);	
 }
-
 
 void fbcTask(void *ignore) {
 	while(1) {
@@ -96,8 +96,9 @@ void fbcTask(void *ignore) {
 }
 
 void fbcInitControllers() {
+  armEnc = encoderInit(7, 8, false);
 	fbcInit(&armFBC, &armSet, &armSense, NULL, &fbcStallDetect, 1, 1, 50, 50);	
-	fbcPIDInitializeData(&armPID, 0.2, 0, 0, 0, 0);
+	fbcPIDInitializeData(&armPID, 5, 0, 70, 0, 0);
 	fbcPIDInit(&armFBC, &armPID);
 	
 	fbcInit(&mogoFBC, &mogo, &mogoSense, NULL, &fbcStallDetect, 1, 1, 50, 50);	
