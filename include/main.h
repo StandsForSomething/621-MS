@@ -33,6 +33,7 @@
 #include "robot.h"
 #include "drive.h"
 #include "autonRoutines.h"
+#include "debug.h"
 
 // Allow usage of this file in C++ programs
 #ifdef __cplusplus

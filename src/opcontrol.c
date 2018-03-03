@@ -112,9 +112,6 @@ void operatorControl() {
 			armHold = true;
 		}
 		
-		//printf("mogoPot:%d\n\r", mogoSense());
-		//printf("autonSelection:%d\n\r", autonSelect());
-		printf("armSense:%d\n\r", armSense());
 		delay(20);
 	}
 }

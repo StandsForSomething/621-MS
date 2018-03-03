@@ -43,4 +43,5 @@ void initialize() {
 	fbcInitControllers();
 	fbcSetGoal(&mogoFBC, mogoSense());
 	fbcSetGoal(&armFBC, armSense());
+  startDebug();
 }
