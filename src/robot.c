@@ -1,13 +1,11 @@
 #include "main.h"
 
-const int LFDrive = 2;
-const int RFDrive = 3;
-const int RBDrive = 8;
-const int LBDrive = 9;
-const int mogoLift = 4;
+const int LDrive = 2;  //power expander A
+const int RDrive = 3;  //power expander B
+const int mogoLift = 4;  //power expander C
 const int armLeft = 5;
 const int armRight = 6;
-const int intake = 7;
+const int intake = 7;  //power expander D
 
 const int mogoPot = 8;
 const int autonSelection = 5;
@@ -21,10 +19,8 @@ fbc_t armFBC;
 fbc_pid_t armPID;
 
 void initMotors() {
-	blrsMotorInit(LFDrive, false, DEFAULT_SLEW_RATE, NULL);
-	blrsMotorInit(LBDrive, false, DEFAULT_SLEW_RATE, NULL);
-	blrsMotorInit(RFDrive, true, DEFAULT_SLEW_RATE, NULL);
-	blrsMotorInit(RBDrive, true, DEFAULT_SLEW_RATE, NULL);
+	blrsMotorInit(LDrive, false, DEFAULT_SLEW_RATE, NULL);
+	blrsMotorInit(RDrive, true, DEFAULT_SLEW_RATE, NULL);
 	blrsMotorInit(mogoLift, true, DEFAULT_SLEW_RATE, NULL);
 	blrsMotorInit(armLeft, false, DEFAULT_SLEW_RATE, NULL);
 	blrsMotorInit(armRight, true, DEFAULT_SLEW_RATE, NULL);

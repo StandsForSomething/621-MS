@@ -10,10 +10,8 @@
 #define EMPTY 3
 
 //motor ports
-const int LFDrive;
-const int RFDrive;
-const int RBDrive;
-const int LBDrive;
+const int LDrive;
+const int RDrive;
 const int mogoLift;
 
 fbc_t mogoFBC;

@@ -35,13 +35,11 @@ int RDriveSense() {
 }
 
 void driveL(int power) {
-	blrsMotorSet(LFDrive, power, false);
-	blrsMotorSet(LBDrive, power, false);
+	blrsMotorSet(LDrive, power, false);
 }
 
 void driveR(int power) {
-	blrsMotorSet(RFDrive, power, false);
-	blrsMotorSet(RBDrive, power, false);
+	blrsMotorSet(RDrive, power, false);
 }
 
 void drive(int distance, bool blocking) {
