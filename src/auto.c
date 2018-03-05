@@ -27,6 +27,7 @@
  * so, the robot will await a switch to another mode or disable/enable cycle.
  */
 void autonomous() {
+  drive(3, TILES, true);
 	if( autonSelect() > 3750 && autonSelect() < 4095) {
 		auton_1();
 	}

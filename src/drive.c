@@ -42,17 +42,6 @@ void driveR(int power) {
 	blrsMotorSet(RDrive, power, false);
 }
 
-void drive(int distance, bool blocking) {
-	encoderReset(leftEnc);
-	encoderReset(rightEnc);
-	driveStraight = true;
-	driveStraightLoops = 0;
-	fbcSetGoal(&RDriveFBC, distance);
-	while(blocking && !fbcIsConfident(&RDriveFBC)){
-    delay(20);
-  }
-}
-
 void turn(int left, int right, bool blocking) {
   encoderReset(leftEnc);
   encoderReset(rightEnc);
