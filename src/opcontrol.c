@@ -31,22 +31,30 @@
  */
 
 void operatorControl() {
-	int turnDivisor = 4;
-	int armSpeed;	
+	int turnDivisor;
+	int armSpeed;
 	int intakeState = intakeSetState(HOLD_CONE);
   int driveLSpeed = 0;
   int driveRSpeed = 0;
 	bool armHold = false;
 	
 	while (1) {
+    if(buttonGetState(JOY1_7U) || buttonGetState(JOY1_7D)) {
+      turnDivisor = 1;
+    }
+
+    else {
+      turnDivisor = 2;
+    }
+
     driveRSpeed = buttonGetState(JOY1_7U) * 127;
     driveLSpeed = buttonGetState(JOY1_7U) * 127;
     driveRSpeed += buttonGetState(JOY1_7D) * -127;
     driveLSpeed += buttonGetState(JOY1_7D) * -127;
-    driveRSpeed += buttonGetState(JOY1_7R) * -127;
-    driveLSpeed += buttonGetState(JOY1_7R) * 127 ;
-    driveRSpeed += buttonGetState(JOY1_7L) * 127;
-    driveLSpeed += buttonGetState(JOY1_7L) * -127;
+    driveRSpeed += buttonGetState(JOY1_7R) * -127 / turnDivisor;
+    driveLSpeed += buttonGetState(JOY1_7R) * 127 / turnDivisor;
+    driveRSpeed += buttonGetState(JOY1_7L) * 127 / turnDivisor;
+    driveLSpeed += buttonGetState(JOY1_7L) * -127 / turnDivisor;
 
     if(abs(driveRSpeed) > 15 || abs(driveLSpeed) > 15) {
       driveR(driveRSpeed);
@@ -54,8 +62,8 @@ void operatorControl() {
     }
 
 		else if(abs(joystickGetAnalog(1, 3)) > 15 || abs(joystickGetAnalog(1, 4)) > 15) {
-			driveR(joystickGetAnalog(1, 3) - joystickGetAnalog(1,4) / turnDivisor);
-			driveL(joystickGetAnalog(1, 3) + joystickGetAnalog(1,4) / turnDivisor);
+			driveR(joystickGetAnalog(1, 3) - joystickGetAnalog(1,4));
+			driveL(joystickGetAnalog(1, 3) + joystickGetAnalog(1,4));
 		}
 
 		else {
