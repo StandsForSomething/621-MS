@@ -100,8 +100,8 @@ void operatorControl() {
 			}
 		}
 		
-		fbcSetGoal(&mogoFBC, mogoSense() + (buttonGetState(JOY1_6U) * -600) +
-										   (buttonGetState(JOY1_6D) * 600));
+		fbcSetGoal(&mogoFBC, mogoSense() + (buttonGetState(JOY1_6U) * 600) +
+										   (buttonGetState(JOY1_6D) * -600));
 		if(!isJoystickConnected(2)) {
 			armSpeed = -joystickGetAnalog(1, 2);
 		}

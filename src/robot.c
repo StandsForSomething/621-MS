@@ -25,7 +25,7 @@ void initMotors() {
 	blrsMotorInit(armLeft, false, DEFAULT_SLEW_RATE, NULL);
 	blrsMotorInit(armRight, true, DEFAULT_SLEW_RATE, NULL);
 	blrsMotorInit(intake, false, DEFAULT_SLEW_RATE, NULL);
-	blrsMotorInit(4, false, DEFAULT_SLEW_RATE, NULL);
+	blrsMotorInit(1, false, DEFAULT_SLEW_RATE, NULL);
 	blrsMotorInit(10, false, DEFAULT_SLEW_RATE,  NULL);
 	motorManagerInit();
 	
