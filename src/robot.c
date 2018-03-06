@@ -91,6 +91,11 @@ void fbcTask(void *ignore) {
 	
 }
 
+void buildLCDMenu() {
+  newItem("no auton", NULL);
+  newItem("auton 1", NULL);
+}
+
 void fbcInitControllers() {
   armEnc = encoderInit(7, 8, false);
 	fbcInit(&armFBC, &armSet, &armSense, NULL, &fbcStallDetect, 1, 1, 50, 50);	

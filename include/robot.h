@@ -25,6 +25,7 @@ int intakeSetState(int state);
 int mogoSense();
 int armSense();
 int autonSelect();
+void buildLCDMenu();
 void fbcInitControllers();
 
 

@@ -27,7 +27,11 @@
  * so, the robot will await a switch to another mode or disable/enable cycle.
  */
 void autonomous() {
-	if( autonSelect() > 3750 && autonSelect() < 4095) {
-		auton_1();
-	}
+  switch(LCDMenuSelection) {
+  case 0:
+    break;
+  case 1:
+    auton_1();
+    break;
+  }
 }
