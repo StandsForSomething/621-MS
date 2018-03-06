@@ -1,0 +1,16 @@
+#object files
+*.o
+
+#binary files
+*.bin
+
+#executable and linkable files
+*.elf
+
+#emacs autosave
+[#]*[#]
+.[#]*
+*~
+
+#megasync .debris folder
+.debris/
