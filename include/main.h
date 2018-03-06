@@ -35,6 +35,7 @@
 #include "autonRoutines.h"
 #include "debug.h"
 #include "auton_util.h"
+#include "LCDMenu.h"
 
 // Allow usage of this file in C++ programs
 #ifdef __cplusplus

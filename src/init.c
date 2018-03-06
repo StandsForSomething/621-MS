@@ -44,4 +44,6 @@ void initialize() {
 	fbcSetGoal(&mogoFBC, mogoSense());
 	fbcSetGoal(&armFBC, armSense());
   startDebug();
+  LCDSelectionSense = &autonSelect;
+  taskCreate(&LCDMenuTask, TASK_DEFAULT_STACK_SIZE, NULL, TASK_PRIORITY_DEFAULT);
 }
