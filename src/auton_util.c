@@ -55,3 +55,17 @@ void drive(double distance, int type, bool blocking) {
     delay(20);
   }
 }
+
+void mogoSetGoal(int goal, bool blocking) {
+  fbcSetGoal(&mogoFBC, goal);
+  while(blocking && !fbcIsConfident(&mogoFBC)) {
+    delay(20);
+  }
+}
+
+void armSetGoal(int goal, bool blocking) {
+  fbcSetGoal(&armFBC, goal);
+  while(blocking && !fbcIsConfident(&armFBC)) {
+    delay(20);
+  }
+}

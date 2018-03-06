@@ -13,5 +13,7 @@
 double ticksToDistance(double ticks, int outputType);
 double distanceToTicks(double input, int outputType);
 void drive(double distance, int type, bool blocking);
+void mogoSetGoal(int goal, bool blocking);
+void armSetGoal(int goal, bool blocking);
 
 #endif
