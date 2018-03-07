@@ -31,7 +31,7 @@ void autonomous() {
   case 0:
     break;
   case 1:
-    auton_1();
+	progSkills();
     break;
   }
 }
