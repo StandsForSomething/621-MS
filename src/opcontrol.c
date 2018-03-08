@@ -33,9 +33,9 @@
 void operatorControl() {
 	int turnDivisor;
 	int armSpeed;
-	int intakeState = intakeSetState(HOLD_CONE);
   int driveLSpeed = 0;
   int driveRSpeed = 0;
+	bool btn7LPressed = false;
 	bool armHold = false;
 	
 	while (1) {
@@ -79,26 +79,28 @@ void operatorControl() {
 			turnDivisor = 4;
 		}
 		
-		if((!isJoystickConnected(2) && buttonIsNewPress(JOY1_5D)) ||
-			buttonIsNewPress(JOY2_5D)) {
-			switch(intakeState) {
-				case OUTAKE_CONE:
-					intakeState = intakeSetState(EMPTY);
-				break;
-				
-				case EMPTY:
-					intakeState = intakeSetState(INTAKE_CONE);
-				break;
-				
-				case INTAKE_CONE:
-					intakeState = intakeSetState(HOLD_CONE);
-				break;
-				
-				case HOLD_CONE:
-					intakeState = intakeSetState(OUTAKE_CONE);
-				break;
-			}
+        if((!isJoystickConnected(2) && buttonGetState(JOY1_8L)) ||
+			buttonGetState(JOY2_7L)) {  
+			intakeSetState(INTAKE_CONE);
+			btn7LPressed = true;	
 		}
+		
+		else if((!isJoystickConnected(2) && buttonGetState(JOY1_8D)) ||
+				buttonGetState(JOY2_7D)) {
+			intakeSetState(OUTAKE_CONE);
+			btn7LPressed = false;		
+		}
+		
+		else if(btn7LPressed){
+		intakeSetState(HOLD_CONE);		
+		}
+		
+     	else {
+		intakeSetState(EMPTY);		
+		}
+			
+			
+		
 		
 		fbcSetGoal(&mogoFBC, mogoSense() + (buttonGetState(JOY1_6U) * 600) +
 										   (buttonGetState(JOY1_6D) * -600));

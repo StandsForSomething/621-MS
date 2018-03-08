@@ -69,7 +69,7 @@ void statGoal() {
 	delay(200);
 	mogoSetGoal(1874, true);
 	delay(300);
-	intakeSetState(INTAKE_CONE);
+	intakeSetState(OUTAKE_CONE);
 	delay(500);
 	armSetGoal(25, true);
 	delay(500);
