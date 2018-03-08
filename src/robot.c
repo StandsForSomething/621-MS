@@ -94,6 +94,7 @@ void fbcTask(void *ignore) {
 void buildLCDMenu() {
   newItem("no auton", NULL);
   newItem("skills", NULL);
+  newItem("stat goal", NULL);
 }
 
 void fbcInitControllers() {

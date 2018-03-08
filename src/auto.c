@@ -33,5 +33,8 @@ void autonomous() {
   case 1:
 	progSkills();
     break;
+  case 2:
+	statGoal();
+	break;
   }
 }
