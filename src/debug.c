@@ -3,7 +3,7 @@
 void _debugTask(void *ignore) {
   while(true) {
     printf("drive: %d, %d\n\r", LDriveSense(), RDriveSense());
-    printf("arm: %d\n\r", armSense());
+    printf("arm: %d\n\r", armFBC.goal);
 	printf("autonSelect %d\n\r", autonSelect());
 	printf("mogoSense %d\n\r", mogoSense());	
     delay(500);

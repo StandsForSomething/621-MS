@@ -36,5 +36,11 @@ void autonomous() {
   case 2:
 	statGoal();
 	break;
+  case 3:
+	test();
+	break;
+  case 4:
+	conePush();
+	break;
   }
 }

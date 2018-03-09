@@ -11,15 +11,15 @@ void progSkills(){
 	delay(1200);
 	
 	//drive to put mogo into lift  
-	drive(31, INCHES, true);
-	delay(1000);
+	drive(28, INCHES, true);
+	delay(600);
 	
 	//lift mogo into hold
 	mogoSetGoal( 3600, false);
-	delay(200);
+	delay(900);
 	
 	//turn towards twenty point zone
-	turn(-670, 670, true);
+	turn(-1000, 1000, true);
 	delay(1800);
 	//drive into 20 point zone 
 	drive(59.5, INCHES, true);
@@ -85,3 +85,13 @@ void statGoal() {
 	delay(1000);
 	drive(50, INCHES, true);
 }
+void test() {
+
+drive(1000,TICKS, true);
+ }
+ 
+ void conePush() {
+    armSetGoal(CAGE_CONE_HEIGHT, false);
+	delay(2000);
+    drive(-55,INCHES, true);
+ }

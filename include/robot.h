@@ -9,6 +9,9 @@
 #define HOLD_CONE 2
 #define EMPTY 3
 
+#define CAGE_CONE_HEIGHT 217
+
+
 //motor ports
 const int LDrive;
 const int RDrive;

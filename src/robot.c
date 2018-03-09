@@ -10,6 +10,8 @@ const int intake = 7;  //power expander D
 const int mogoPot = 8;
 const int autonSelection = 5;
 
+const int armJumper = 7;
+
 Encoder armEnc;
 
 fbc_t mogoFBC;
@@ -95,12 +97,19 @@ void buildLCDMenu() {
   newItem("no auton", NULL);
   newItem("skills", NULL);
   newItem("stat goal", NULL);
+  newItem("Test", NULL);
+  newItem("Cone Push", NULL);  
 }
 
 void fbcInitControllers() {
   armEnc = encoderInit(7, 8, false);
 	fbcInit(&armFBC, &armSet, &armSense, NULL, &fbcStallDetect, 1, 1, 50, 50);	
-	fbcPIDInitializeData(&armPID, 3.3, 0, 70, 0, 0);
+	if(digitalRead(armJumper)) {
+	 fbcPIDInitializeData(&armPID, 3.3, 0, 70, 0, 0);	
+	}
+    else {	
+	 fbcPIDInitializeData(&armPID, 1.5, 0, 70, 0, 0);
+	}
 	fbcPIDInit(&armFBC, &armPID);
 	
 	fbcInit(&mogoFBC, &mogo, &mogoSense, NULL, &fbcStallDetect, 1, 1, 50, 50);	

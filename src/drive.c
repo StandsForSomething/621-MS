@@ -84,8 +84,8 @@ void initDrive() {
 	fbcInit(&RDriveFBC, &driveR, &RDriveSense, NULL, &fbcStallDetect, 10, 10, 25,
 			1);
 
-	fbcPIDInitializeData(&LDrivePID, 0.4, 0, 70, 0, 0);
-	fbcPIDInitializeData(&RDrivePID, 0.4, 0, 70, 0, 0);
+	fbcPIDInitializeData(&LDrivePID, 0.35, 0, 0, 0, 0);
+	fbcPIDInitializeData(&RDrivePID, 0.35, 0, 0, 0, 0);
 	fbcPIDInit(&LDriveFBC, &LDrivePID);
   fbcPIDInit(&RDriveFBC, &RDrivePID);
   taskCreate(driveTask, TASK_DEFAULT_STACK_SIZE, NULL, TASK_PRIORITY_DEFAULT);
